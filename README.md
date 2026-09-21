@@ -56,6 +56,7 @@ Invoke-WebRequest 'http://127.0.0.1:5080/api/files?name=public.txt'
 - `specs/001-api-benchmark/contracts/openapi.yaml`: contrato HTTP;
 - `specs/001-api-benchmark/tasks.md`: progresso rastreável por incremento;
 - `docs/test-cases.md`: gabarito dos cenários estáticos;
+- `docs/secure-reference.md`: diferenças mínimas da correção de referência;
 - `docs/experimental-protocol.md`: ambiente, comandos e registro de resultados.
 
 ## Limites de segurança do benchmark

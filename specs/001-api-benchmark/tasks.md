@@ -24,16 +24,16 @@
 
 ## Incremento 4 — referência segura
 
-- [ ] Derivar branch `benchmark-secure` do baseline.
-- [ ] Parametrizar a consulta SQL.
-- [ ] Restringir caminhos à pasta `SampleFiles`.
-- [ ] Atualizar teste para rejeitar travessia.
-- [ ] Validar build e testes.
+- [x] Derivar branch `benchmark-secure` do baseline.
+- [x] Parametrizar a consulta SQL.
+- [x] Restringir caminhos à pasta `SampleFiles`.
+- [x] Atualizar teste para rejeitar travessia.
+- [x] Validar build e testes.
 
 ## Incremento 5 — verificação final
 
-- [ ] Executar restore em modo locked nas duas branches.
-- [ ] Executar build e testes nas duas branches.
-- [ ] Executar smoke test HTTP local.
-- [ ] Registrar versões, commits e resultados em `docs/experimental-protocol.md`.
-- [ ] Manter a tag `experiment-001` pendente até aprovação explícita do baseline.
+- [x] Executar restore em modo locked nas duas branches.
+- [x] Executar build e testes nas duas branches.
+- [x] Executar smoke test HTTP local.
+- [x] Registrar versões, commits e resultados em `docs/experimental-protocol.md`.
+- [x] Manter a tag `experiment-001` pendente até aprovação explícita do baseline.
