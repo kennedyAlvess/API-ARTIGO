@@ -26,7 +26,7 @@ No baseline vulnerável, o limite de autorização é `SampleFiles`, mas a entra
 ## Decisões
 
 1. Target `net9.0` preservado por comparabilidade com o desenho experimental.
-2. SDK de build registrado como 10.0.401 porque é o SDK instalado no ambiente; ele compila o target `net9.0` usando os targeting packs restaurados.
+2. SDK de build registrado como 10.0.401 porque é o SDK instalado no ambiente; ele compila o target `net9.0` usando os targeting packs restaurados. `RollForward=Major` permite execução sobre ASP.NET Core 10 quando o shared framework 9 não estiver disponível.
 3. Pacotes Microsoft da linha 9 fixados em 9.0.20.
 4. Contrato OpenAPI mantido como artefato SDD estático; não será adicionado runtime de documentação ao corpus.
 5. Nenhuma integração específica de Snyk, Semgrep ou CodeQL será adicionada antes do experimento.
@@ -49,4 +49,3 @@ No baseline vulnerável, o limite de autorização é `SampleFiles`, mas a entra
 | Contaminação do benchmark por regras de fornecedor | nenhuma configuração específica de scanner |
 | Diferença entre branches além das correções | branch segura derivada diretamente do baseline vulnerável |
 | Target fora de suporte | registrar a condição e reconfirmar compatibilidade dos scanners no congelamento experimental |
-

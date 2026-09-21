@@ -1,0 +1,2 @@
+Fixture pública sintética do benchmark.
+

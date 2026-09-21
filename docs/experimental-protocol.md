@@ -8,10 +8,10 @@
 - Sistema observado: Windows 10.0.26200, win-x64
 - SDK de build observado: .NET SDK 10.0.401
 - Target framework: `net9.0`
-- Runtime `Microsoft.NETCore.App` observado: 9.0.16
-- Runtime `Microsoft.AspNetCore.App` observado: 9.0.16
+- Runtime `Microsoft.NETCore.App` observado: 9.0.16 e 10.0.12
+- Runtime `Microsoft.AspNetCore.App` observado: 10.0.12
 
-O .NET 9 já está fora da janela regular de suporte na data desta implementação. O target foi mantido para preservar a especificação do corpus; a compatibilidade efetiva de cada scanner deve ser reconfirmada antes de congelar a rodada experimental.
+O .NET 9 já está fora da janela regular de suporte na data desta implementação. O target foi mantido para preservar a especificação do corpus; a compatibilidade efetiva de cada scanner deve ser reconfirmada antes de congelar a rodada experimental. Como o shared framework ASP.NET Core 9 não está instalado nesta máquina, `RollForward=Major` permite a execução local sobre ASP.NET Core 10. Em uma máquina com ASP.NET Core 9, o runtime da major de destino continua sendo preferido.
 
 ## Dependências diretas fixadas
 
@@ -60,4 +60,3 @@ Encerrar a aplicação com `Ctrl+C`. Não substituir o endereço de loopback por
 | Segura | `benchmark-secure` | PENDENTE | PENDENTE | PENDENTE | PENDENTE | PENDENTE |
 
 Tag `experiment-001`: **não criada; aguarda aprovação do baseline**.
-

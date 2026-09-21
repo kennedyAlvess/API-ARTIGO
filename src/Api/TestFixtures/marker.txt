@@ -1,0 +1,2 @@
+Marcador sintético: travessia controlada do benchmark API-SC-02.
+
