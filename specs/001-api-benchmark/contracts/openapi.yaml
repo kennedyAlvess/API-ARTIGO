@@ -1,0 +1,97 @@
+openapi: 3.0.3
+info:
+  title: API Benchmark de Análise Estática
+  version: 1.0.0
+  description: API local e educacional; o baseline vulnerável não deve ser implantado.
+servers:
+  - url: http://127.0.0.1:5080
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      responses:
+        '200':
+          description: Aplicação disponível.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /api/products:
+    get:
+      operationId: searchProducts
+      parameters:
+        - name: term
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Resultado da pesquisa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductSearchResponse'
+  /api/files:
+    get:
+      operationId: readSampleFile
+      parameters:
+        - name: name
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Conteúdo textual da fixture.
+          content:
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Nome ausente, inválido ou fora da pasta autorizada na referência segura.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Fixture não encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          example: ok
+    Product:
+      type: object
+      required: [id, name, description]
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        description:
+          type: string
+    ProductSearchResponse:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+
