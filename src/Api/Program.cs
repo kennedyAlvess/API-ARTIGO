@@ -14,7 +14,7 @@ app.MapGet("/api/files", ReadFileApiSc02);
 
 app.Run();
 
-// API-SC-01 (CWE-89): baseline deliberadamente vulnerável para análise estática.
+// API-SC-01 (CWE-89): referência segura com consulta parametrizada.
 static async Task<IResult> SearchProductsApiSc01(string? term, BenchmarkDatabase database)
 {
     if (string.IsNullOrWhiteSpace(term))
@@ -22,22 +22,16 @@ static async Task<IResult> SearchProductsApiSc01(string? term, BenchmarkDatabase
         return Results.Ok(new ProductSearchResponse([]));
     }
 
-    // Limite de segurança do corpus: bloqueia múltiplas instruções destrutivas,
-    // mas preserva a construção SQL injetável que o benchmark deve detectar.
-    if (term.Contains(';', StringComparison.Ordinal))
-    {
-        return Results.BadRequest(new ErrorResponse("O termo contém um caractere não permitido no benchmark."));
-    }
-
     await using var connection = await database.OpenReadOnlyConnectionAsync();
     await using var command = connection.CreateCommand();
 
-    command.CommandText = $"""
+    command.CommandText = """
         SELECT Id, Name, Description
         FROM Products
-        WHERE Name LIKE '%{term}%'
+        WHERE Name LIKE @term
         ORDER BY Id;
         """;
+    command.Parameters.AddWithValue("@term", $"%{term}%");
 
     var products = new List<ProductResponse>();
     await using var reader = await command.ExecuteReaderAsync();
@@ -53,7 +47,7 @@ static async Task<IResult> SearchProductsApiSc01(string? term, BenchmarkDatabase
     return Results.Ok(new ProductSearchResponse(products));
 }
 
-// API-SC-02 (CWE-22): o baseline não confirma permanência em SampleFiles.
+// API-SC-02 (CWE-22): referência segura restringe a leitura a SampleFiles.
 static async Task<IResult> ReadFileApiSc02(string? name, IWebHostEnvironment environment)
 {
     if (string.IsNullOrWhiteSpace(name))
@@ -64,12 +58,10 @@ static async Task<IResult> ReadFileApiSc02(string? name, IWebHostEnvironment env
     var sampleFilesRoot = Path.GetFullPath(Path.Combine(environment.ContentRootPath, "SampleFiles"));
     var requestedPath = Path.GetFullPath(Path.Combine(sampleFilesRoot, name));
 
-    // Contenção externa do experimento: permite demonstrar a saída de SampleFiles,
-    // mas impede qualquer leitura fora do diretório do projeto.
-    var projectRoot = EnsureTrailingSeparator(Path.GetFullPath(environment.ContentRootPath));
-    if (!requestedPath.StartsWith(projectRoot, FileSystemPathComparison()))
+    var allowedRoot = EnsureTrailingSeparator(sampleFilesRoot);
+    if (!requestedPath.StartsWith(allowedRoot, FileSystemPathComparison()))
     {
-        return Results.BadRequest(new ErrorResponse("O caminho solicitado não pertence ao corpus do benchmark."));
+        return Results.BadRequest(new ErrorResponse("O caminho solicitado está fora da pasta autorizada."));
     }
 
     if (!File.Exists(requestedPath))
@@ -90,4 +82,3 @@ static StringComparison FileSystemPathComparison() =>
     OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
 
 public partial class Program;
-

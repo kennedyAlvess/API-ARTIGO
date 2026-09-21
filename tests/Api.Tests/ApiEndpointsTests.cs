@@ -54,6 +54,19 @@ public sealed class ApiEndpointsTests : IClassFixture<WebApplicationFactory<Prog
     }
 
     [Fact]
+    public async Task ApiSc01_punctuation_is_treated_as_a_parameter_value()
+    {
+        var response = await _client.GetAsync(
+            "/api/products?term=%27%20OR%201%3D1%20--",
+            TestCancellation);
+        var body = await response.Content.ReadFromJsonAsync<ProductSearchResponse>(TestCancellation);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.NotNull(body);
+        Assert.Empty(body.Items);
+    }
+
+    [Fact]
     public async Task Public_fixture_returns_only_synthetic_content()
     {
         var response = await _client.GetAsync("/api/files?name=public.txt", TestCancellation);
@@ -64,17 +77,13 @@ public sealed class ApiEndpointsTests : IClassFixture<WebApplicationFactory<Prog
     }
 
     [Fact]
-    public async Task ApiSc02_controlled_traversal_reaches_only_marker_fixture()
+    public async Task ApiSc02_controlled_traversal_is_rejected()
     {
         var response = await _client.GetAsync(
             "/api/files?name=..%2FTestFixtures%2Fmarker.txt",
             TestCancellation);
-        var content = await response.Content.ReadAsStringAsync(TestCancellation);
 
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        Assert.Equal(
-            "Marcador sintético: travessia controlada do benchmark API-SC-02.",
-            content.Trim());
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     [Fact]
