@@ -9,18 +9,18 @@
 
 ## Incremento 2 — baseline funcional
 
-- [ ] Criar solução, API e projeto de testes.
-- [ ] Implementar health check e catálogo em memória.
-- [ ] Implementar leitura das fixtures sintéticas.
-- [ ] Fixar dependências com lockfiles.
-- [ ] Validar build e testes.
+- [x] Criar solução, API e projeto de testes.
+- [x] Implementar health check e catálogo em memória.
+- [x] Implementar leitura das fixtures sintéticas.
+- [x] Fixar dependências com lockfiles.
+- [x] Validar build e testes.
 
 ## Incremento 3 — baseline vulnerável controlado
 
-- [ ] Identificar API-SC-01 e API-SC-02 no código.
-- [ ] Demonstrar travessia somente até a fixture sintética.
-- [ ] Registrar origem, destino, CWE e gabarito.
-- [ ] Criar branch `benchmark-vulnerable`.
+- [x] Identificar API-SC-01 e API-SC-02 no código.
+- [x] Demonstrar travessia somente até a fixture sintética.
+- [x] Registrar origem, destino, CWE e gabarito.
+- [x] Criar branch `benchmark-vulnerable`.
 
 ## Incremento 4 — referência segura
 
@@ -37,4 +37,3 @@
 - [ ] Executar smoke test HTTP local.
 - [ ] Registrar versões, commits e resultados em `docs/experimental-protocol.md`.
 - [ ] Manter a tag `experiment-001` pendente até aprovação explícita do baseline.
-

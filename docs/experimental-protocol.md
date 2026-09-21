@@ -56,7 +56,7 @@ Encerrar a aplicação com `Ctrl+C`. Não substituir o endereço de loopback por
 
 | Variante | Branch | Commit | Restore locked | Build | Testes | Smoke |
 |---|---|---|---|---|---|---|
-| Vulnerável | `benchmark-vulnerable` | PENDENTE | PENDENTE | PENDENTE | PENDENTE | PENDENTE |
+| Vulnerável | `benchmark-vulnerable` | `bad48f6046f0ec34d334e4fbcdf58b669fe2a2ae` | OK | OK, 0 avisos | OK, 8/8 | OK |
 | Segura | `benchmark-secure` | PENDENTE | PENDENTE | PENDENTE | PENDENTE | PENDENTE |
 
 Tag `experiment-001`: **não criada; aguarda aprovação do baseline**.
